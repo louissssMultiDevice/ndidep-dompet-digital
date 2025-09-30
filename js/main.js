@@ -288,12 +288,72 @@ class HandiDevApp {
         }).format(amount);
     }
 
-    formatDate(date) {
+        formatDate(date) {
         return new Intl.DateTimeFormat('id-ID', {
             year: 'numeric',
             month: 'long',
             day: 'numeric',
             hour: '2-digit',
             minute: '2-digit'
+        }).format(new Date(date));
+    }
+
+    generateTransactionId() {
+        return 'TXN' + Date.now() + Math.random().toString(36).substr(2, 5).toUpperCase();
+    }
+
+    copyToClipboard(text) {
+        navigator.clipboard.writeText(text).then(() => {
+            this.showNotification('Berhasil disalin ke clipboard!', 'success');
+        }).catch(() => {
+            this.showNotification('Gagal menyalin ke clipboard', 'error');
+        });
+    }
+}
+
+// Initialize app when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    new HandiDevApp();
+});
+
+// Global utility functions
+window.HandiDev = {
+    formatCurrency: (amount) => {
+        return new Intl.NumberFormat('id-ID', {
+            style: 'currency',
+            currency: 'IDR'
+        }).format(amount);
+    },
+    
+    showLoading: () => {
+        const loading = document.createElement('div');
+        loading.id = 'global-loading';
+        loading.innerHTML = `
+            <div style="
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.5);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 99999;
+            ">
+                <div class="loading-spinner"></div>
+            </div>
+        `;
+        document.body.appendChild(loading);
+    },
+    
+    hideLoading: () => {
+        const loading = document.getElementById('global-loading');
+        if (loading) {
+            loading.remove();
+        }
+    }
+};
+
 
               
