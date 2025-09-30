@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Handi Dev</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="dashboard-page">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <i class="fas fa-wallet"></i>
+                <span>Handi Dev</span>
+            </div>
+            <button class="sidebar-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <nav class="sidebar-nav">
+            <ul>
+                <li class="nav-item active">
+                    <a href="#dashboard" class="nav-link">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#profile" class="nav-link">
+                        <i class="fas fa-user"></i>
+                        <span>Profile</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#topup" class="nav-link">
+                        <i class="fas fa-plus-circle"></i>
+                        <span>Top Up</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#transfer" class="nav-link">
+                        <i class="fas fa-exchange-alt"></i>
+                        <span>Transfer</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#withdraw" class="nav-link">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <span>Tarik Tunai</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#merchant" class="nav-link">
+                        <i class="fas fa-qrcode"></i>
+                        <span>Merchant (QRIS)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#transactions" class="nav-link">
+                        <i class="fas fa-history"></i>
+                        <span>Riwayat Transaksi</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#balance" class="nav-link">
+                        <i class="fas fa-wallet"></i>
+                        <span>Saldo</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#notifications" class="nav-link">
+                        <i class="fas fa-bell"></i>
+                        <span>Pemberitahuan</span>
+                        <span class="badge">3</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about" class="nav-link">
+                        <i class="fas fa-info-circle"></i>
+                        <span>Tentang</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link">
+                        <i class="fas fa-phone"></i>
+                        <span>Hubungi Dev</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#reports" class="nav-link">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Rekap</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="sidebar-footer">
+            <button class="btn-logout" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Keluar</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-left">
+                <h1 class="page-title">Dashboard</h1>
+                <div class="breadcrumb">
+                    <span>Home</span>
+                    <i class="fas fa-chevron-right"></i>
+                    <span>Dashboard</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="header-actions">
+                    <button class="btn-notification">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-dot"></span>
+                    </button>
+                    <div class="user-profile">
+                        <img src="https://via.placeholder.com/40" alt="Profile" class="profile-avatar">
+                        <div class="profile-info">
+                            <span class="profile-name">Handi Developer</span>
+                            <span class="profile-role">Premium User</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dashboard Content -->
+        <div class="dashboard-content" id="dashboard">
+            <!-- Balance Cards -->
+            <div class="balance-section">
+                <div class="balance-card main-balance">
+                    <div class="balance-header">
+                        <h3>Saldo Utama</h3>
+                        <button class="btn-toggle-balance" onclick="toggleBalance()">
+                            <i class="fas fa-eye" id="balanceToggleIcon"></i>
+                        </button>
+                    </div>
+                    <div class="balance-amount">
+                        <span class="currency">Rp</span>
+                        <span class="amount" id="mainBalance">2,500,000</span>
+                    </div>
+                    <div class="balance-actions">
+                        <button class="btn-action" onclick="showTopUp()">
+                            <i class="fas fa-plus"></i>
+                            Top Up
+                        </button>
+                        <button class="btn-action" onclick="showTransfer()">
+                            <i class="fas fa-paper-plane"></i>
+                            Transfer
+                        </button>
+                        <button class="btn-action" onclick="showWithdraw()">
+                            <i class="fas fa-money-bill-wave"></i>
+                            Tarik
+                        </button>
+                    </div>
+                </div>
+
+                <div class="wallet-cards">
+                    <div class="wallet-card dana-wallet">
+                        <div class="wallet-header">
+                            <span class="wallet-name">DANA</span>
+                            <span class="wallet-status connected">Terhubung</span>
+                        </div>
+                        <div class="wallet-balance">Rp 750,000</div>
+                        <div class="wallet-number">0858****1234</div>
+                    </div>
+                    
+                    <div class="wallet-card gopay-wallet">
+                        <div class="wallet-header">
+                            <span class="wallet-name">GoPay</span>
+                            <span class="wallet-status connected">Terhubung</span>
+                        </div>
+                        <div class="wallet-balance">Rp 1,250,000</div>
+                        <div class="wallet-number">0812****5678</div>
+                    </div>
+                    
+                    <div class="wallet-card ovo-wallet">
+                        <div class="wallet-header">
+                            <span class="wallet-name">OVO</span>
+                            <span class="wallet-status">Belum Terhubung</span>
+                        </div>
+                        <div class="wallet-balance">-</div>
+                        <button class="btn-connect">Hubungkan</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="quick-actions">
+                <h3>Aksi Cepat</h3>
+                <div class="actions-grid">
+                    <button class="action-item" onclick="showQRIS()">
+                        <i class="fas fa-qrcode"></i>
+                        <span>Scan QRIS</span>
+                    </button>
+                    <button class="action-item" onclick="showTransfer()">
+                        <i class="fas fa-user-friends"></i>
+                        <span>Transfer ke Teman</span>
+                    </button>
+                    <button class="action-item" onclick="showBills()">
+                        <i class="fas fa-file-invoice"></i>
+                        <span>Bayar Tagihan</span>
+                    </button>
+                    <button class="action-item" onclick="showPulsa()">
+                        <i class="fas fa-mobile-alt"></i>
+                        <span>Beli Pulsa</span>
+                    </button>
+                    <button class="action-item" onclick="showMerchant()">
+                        <i class="fas fa-store"></i>
+                        <span>Merchant</span>
+                    </button>
+                    <button class="action-item" onclick="showInvestment()">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Investasi</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Statistics -->
+            <div class="statistics-section">
+                <div class="stats-header">
+                    <h3>Statistik Transaksi</h3>
+                    <div class="stats-filter">
+                        <select id="statsFilter">
+                            <option value="7">7 Hari Terakhir</option>
+                            <option value="30">30 Hari Terakhir</option>
+                            <option value="90">3 Bulan Terakhir</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="stats-cards">
+                    <div class="stat-card income">
+                        <div class="stat-icon">
+                            <i class="fas fa-arrow-up"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-label">Pemasukan</span>
+                            <span class="stat-value">Rp 5,750,000</span>
+                            <span class="stat-change positive">+12.5%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card expense">
+                        <div class="stat-icon">
+                            <i class="fas fa-arrow-down"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-label">Pengeluaran</span>
+                            <span class="stat-value">Rp 3,250,000</span>
+                            <span class="stat-change negative">-8.2%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card transactions">
+                        <div class="stat-icon">
+                            <i class="fas fa-exchange-alt"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-label">Total Transaksi</span>
+                            <span class="stat-value">127</span>
+                            <span class="stat-change positive">+5.8%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <canvas id="transactionChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Recent Transactions -->
+            <div class="recent-transactions">
+                <div class="section-header">
+                    <h3>Transaksi Terbaru</h3>
+                    <a href="#transactions" class="view-all">Lihat Semua</a>
+                </div>
+                
+                <div class="transactions-list">
+                    <div class="transaction-item">
+                        <div class="transaction-icon income">
+                            <i class="fas fa-plus"></i>
+                        </div>
+                        <div class="transaction-info">
+                            <span class="transaction-title">Top Up DANA</span>
+                            <span class="transaction-time">2 menit yang lalu</span>
+                        </div>
+                        <div class="transaction-amount income">+Rp 100,000</div>
+                        <div class="transaction-status success">Berhasil</div>
+                    </div>
+                    
+                    <div class="transaction-item">
+                        <div class="transaction-icon expense">
+                            <i class="fas fa-minus"></i>
+                        </div>
+                        <div class="transaction-info">
+                            <span class="transaction-title">Transfer ke Budi</span>
+                            <span class="transaction-time">1 jam yang lalu</span>
+                        </div>
+                        <div class="transaction-amount expense">-Rp 50,000</div>
+                        <div class="transaction-status success">Berhasil</div>
+                    </div>
+                    
+                    <div class="transaction-item">
+                        <div class="transaction-icon expense">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div class="transaction-info">
+                            <span class="transaction-title">Pembayaran Merchant</span>
+                            <span class="transaction-time">3 jam yang lalu</span>
+                        </div>
+                        <div class="transaction-amount expense">-Rp 75,000</div>
+                        <div class="transaction-status success">Berhasil</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile Section -->
+        <div class="dashboard-content" id="profile" style="display: none;">
+            <div class="profile-section">
+                <div class="profile-header">
+                    <div class="profile-avatar-large">
+                        <img src="https://via.placeholder.com/120" alt="Profile">
+                        <button class="btn-change-avatar">
+                            <i class="fas fa-camera"></i>
+                        </button>
+                    </div>
+<div class="profile-details">
+                        <h2>Handi Developer</h2>
+</div>
+                                            <p class="profile-email">handi.dev@example.com</p>
+                        <p class="profile-phone">+62 858-1234-5678</p>
+                        <div class="profile-badges">
+                            <span class="badge premium">Premium Member</span>
+                            <span class="badge verified">Terverifikasi</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-form">
+                    <form id="profileForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">Nama Depan</label>
+                                <input type="text" id="firstName" name="firstName" value="Handi">
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Nama Belakang</label>
+                                <input type="text" id="lastName" name="lastName" value="Developer">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" value="handi.dev@example.com">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Nomor Telepon</label>
+                            <input type="tel" id="phone" name="phone" value="+62 858-1234-5678">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="birthDate">Tanggal Lahir</label>
+                            <input type="date" id="birthDate" name="birthDate" value="1995-01-15">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="address">Alamat</label>
+                            <textarea id="address" name="address" rows="3">Jl. Contoh No. 123, Jakarta</textarea>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary">Simpan Perubahan</button>
+                            <button type="button" class="btn-secondary" onclick="resetForm()">Reset</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="security-section">
+                    <h3>Keamanan Akun</h3>
+                    <div class="security-items">
+                        <div class="security-item">
+                            <div class="security-info">
+                                <h4>Ubah PIN</h4>
+                                <p>Terakhir diubah 30 hari yang lalu</p>
+                            </div>
+                            <button class="btn-secondary" onclick="changePin()">Ubah PIN</button>
+                        </div>
+                        
+                        <div class="security-item">
+                            <div class="security-info">
+                                <h4>Autentikasi 2 Faktor</h4>
+                                <p>Tingkatkan keamanan akun Anda</p>
+                            </div>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="twoFactor" checked>
+                                <label for="twoFactor"></label>
+                            </div>
+                        </div>
+                        
+                        <div class="security-item">
+                            <div class="security-info">
+                                <h4>Notifikasi Login</h4>
+                                <p>Dapatkan notifikasi saat login dari perangkat baru</p>
+                            </div>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="loginNotif" checked>
+                                <label for="loginNotif"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Top Up Section -->
+        <div class="dashboard-content" id="topup" style="display: none;">
+            <div class="topup-section">
+                <h2>Top Up Saldo</h2>
+                
+                <div class="topup-methods">
+                    <div class="method-tabs">
+                        <button class="tab-btn active" onclick="switchTopupMethod('bank')">Transfer Bank</button>
+                        <button class="tab-btn" onclick="switchTopupMethod('ewallet')">E-Wallet</button>
+                        <button class="tab-btn" onclick="switchTopupMethod('retail')">Retail</button>
+                    </div>
+
+                    <!-- Bank Transfer -->
+                    <div class="method-content active" id="bank-method">
+                        <div class="bank-list">
+                            <div class="bank-item" onclick="selectBank('bca')">
+                                <img src="https://via.placeholder.com/60x30/0066cc/ffffff?text=BCA" alt="BCA">
+                                <span>Bank BCA</span>
+                                <span class="fee">Gratis</span>
+                            </div>
+                            <div class="bank-item" onclick="selectBank('mandiri')">
+                                <img src="https://via.placeholder.com/60x30/ffcc00/000000?text=MANDIRI" alt="Mandiri">
+                                <span>Bank Mandiri</span>
+                                <span class="fee">Gratis</span>
+                            </div>
+                            <div class="bank-item" onclick="selectBank('bni')">
+                                <img src="https://via.placeholder.com/60x30/ff6600/ffffff?text=BNI" alt="BNI">
+                                <span>Bank BNI</span>
+                                <span class="fee">Gratis</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- E-Wallet -->
+                    <div class="method-content" id="ewallet-method">
+                        <div class="ewallet-list">
+                            <div class="ewallet-item" onclick="selectEwallet('dana')">
+                                <div class="ewallet-icon dana">DANA</div>
+                                <span>DANA</span>
+                                <span class="fee">Rp 1,000</span>
+                            </div>
+                            <div class="ewallet-item" onclick="selectEwallet('gopay')">
+                                <div class="ewallet-icon gopay"><i class="fas fa-motorcycle"></i></div>
+                                <span>GoPay</span>
+                                <span class="fee">Rp 1,500</span>
+                            </div>
+                            <div class="ewallet-item" onclick="selectEwallet('ovo')">
+                                <div class="ewallet-icon ovo">OVO</div>
+                                <span>OVO</span>
+                                <span class="fee">Rp 1,000</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Retail -->
+                    <div class="method-content" id="retail-method">
+                        <div class="retail-list">
+                            <div class="retail-item" onclick="selectRetail('alfamart')">
+                                <img src="https://via.placeholder.com/60x30/ff0000/ffffff?text=ALFA" alt="Alfamart">
+                                <span>Alfamart</span>
+                                <span class="fee">Rp 2,500</span>
+                            </div>
+                            <div class="retail-item" onclick="selectRetail('indomaret')">
+                                <img src="https://via.placeholder.com/60x30/0066cc/ffffff?text=INDO" alt="Indomaret">
+                                <span>Indomaret</span>
+                                <span class="fee">Rp 2,500</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="amount-selection">
+                    <h3>Pilih Nominal</h3>
+                    <div class="amount-buttons">
+                        <button class="amount-btn" onclick="selectAmount(50000)">Rp 50,000</button>
+                        <button class="amount-btn" onclick="selectAmount(100000)">Rp 100,000</button>
+                        <button class="amount-btn" onclick="selectAmount(200000)">Rp 200,000</button>
+                        <button class="amount-btn" onclick="selectAmount(500000)">Rp 500,000</button>
+                        <button class="amount-btn" onclick="selectAmount(1000000)">Rp 1,000,000</button>
+                        <button class="amount-btn custom" onclick="showCustomAmount()">Nominal Lain</button>
+                    </div>
+                    
+                    <div class="custom-amount" id="customAmount" style="display: none;">
+                        <input type="number" placeholder="Masukkan nominal" min="10000" max="10000000">
+                    </div>
+                </div>
+
+                <div class="topup-summary">
+                    <div class="summary-item">
+                        <span>Nominal Top Up:</span>
+                        <span id="topupAmount">Rp 0</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Biaya Admin:</span>
+                        <span id="adminFee">Rp 0</span>
+                    </div>
+                    <div class="summary-item total">
+                        <span>Total Bayar:</span>
+                        <span id="totalAmount">Rp 0</span>
+                    </div>
+                </div>
+
+                <button class="btn-topup" onclick="processTopup()" disabled>
+                    <i class="fas fa-plus-circle"></i>
+                    Lanjutkan Top Up
+                </button>
+            </div>
+        </div>
+
+        <!-- Transfer Section -->
+        <div class="dashboard-content" id="transfer" style="display: none;">
+            <div class="transfer-section">
+                <h2>Transfer Uang</h2>
+                
+                <div class="transfer-tabs">
+                    <button class="tab-btn active" onclick="switchTransferType('contact')">Ke Kontak</button>
+                    <button class="tab-btn" onclick="switchTransferType('phone')">Nomor HP</button>
+                    <button class="tab-btn" onclick="switchTransferType('qr')">Scan QR</button>
+                </div>
+
+                <!-- Transfer to Contact -->
+                <div class="transfer-content active" id="contact-transfer">
+                    <div class="recent-contacts">
+                        <h3>Kontak Terakhir</h3>
+                        <div class="contacts-list">
+                            <div class="contact-item" onclick="selectContact('Budi', '081234567890')">
+                                <div class="contact-avatar">B</div>
+                                <div class="contact-info">
+                                    <span class="contact-name">Budi Santoso</span>
+                                    <span class="contact-phone">081234567890</span>
+                                </div>
+                            </div>
+                            <div class="contact-item" onclick="selectContact('Sari', '087654321098')">
+                                <div class="contact-avatar">S</div>
+                                <div class="contact-info">
+                                    <span class="contact-name">Sari Dewi</span>
+                                    <span class="contact-phone">087654321098</span>
+                                </div>
+                            </div>
+                            <div class="contact-item" onclick="selectContact('Ahmad', '085678901234')">
+                                <div class="contact-avatar">A</div>
+                                <div class="contact-info">
+                                    <span class="contact-name">Ahmad Rahman</span>
+                                    <span class="contact-phone">085678901234</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Transfer by Phone -->
+                <div class="transfer-content" id="phone-transfer">
+                    <div class="phone-input">
+                        <label for="recipientPhone">Nomor HP Penerima</label>
+                        <div class="input-group">
+                            <span class="input-prefix">+62</span>
+                            <input type="tel" id="recipientPhone" placeholder="8xx-xxxx-xxxx">
+                        </div>
+                        <button class="btn-check" onclick="checkRecipient()">Cek Penerima</button>
+                    </div>
+                </div>
+
+                <!-- QR Transfer -->
+                <div class="transfer-content" id="qr-transfer">
+                    <div class="qr-scanner">
+                        <div class="scanner-area">
+                            <i class="fas fa-qrcode"></i>
+                            <p>Scan QR Code penerima</p>
+                            <button class="btn-scan" onclick="startQRScan()">Mulai Scan</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Transfer Form -->
+                <div class="transfer-form" id="transferForm" style="display: none;">
+                    <div class="recipient-info">
+                        <div class="recipient-avatar" id="recipientAvatar">?</div>
+                        <div class="recipient-details">
+                            <span class="recipient-name" id="recipientName">-</span>
+                            <span class="recipient-phone" id="recipientPhoneDisplay">-</span>
+                        </div>
+                    </div>
+
+                    <div class="amount-input">
+                        <label for="transferAmount">Jumlah Transfer</label>
+                        <div class="input-group">
+                            <span class="input-prefix">Rp</span>
+                            <input type="number" id="transferAmount" placeholder="0" min="10000" max="10000000">
+                        </div>
+                        <div class="quick-amounts">
+                            <button onclick="setTransferAmount(50000)">50K</button>
+                            <button onclick="setTransferAmount(100000)">100K</button>
+                            <button onclick="setTransferAmount(200000)">200K</button>
+                            <button onclick="setTransferAmount(500000)">500K</button>
+                        </div>
+                    </div>
+
+                    <div class="message-input">
+                        <label for="transferMessage">Pesan (Opsional)</label>
+                        <input type="text" id="transferMessage" placeholder="Tulis pesan...">
+                    </div>
+
+                    <div class="transfer-summary">
+                        <div class="summary-item">
+                            <span>Jumlah Transfer:</span>
+                            <span id="transferAmountDisplay">Rp 0</span>
+                        </div>
+                        <div class="summary-item">
+                            <span>Biaya Admin:</span>
+                            <span>Gratis</span>
+                        </div>
+                        <div class="summary-item total">
+                            <span>Total:</span>
+                            <span id="transferTotal">Rp 0</span>
+                        </div>
+                    </div>
+
+                    <button class="btn-transfer" onclick="processTransfer()">
+                        <i class="fas fa-paper-plane"></i>
+                        Kirim Uang
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Withdraw Section -->
+        <div class="dashboard-content" id="withdraw" style="display: none;">
+            <div class="withdraw-section">
+                <h2>Tarik Tunai</h2>
+                
+                <div class="withdraw-methods">
+                    <div class="method-item" onclick="selectWithdrawMethod('atm')">
+                        <i class="fas fa-credit-card"></i>
+                        <h3>ATM</h3>
+                        <p>Tarik tunai di ATM terdekat</p>
+                        <span class="fee">Biaya: Rp 5,000</span>
+                    </div>
+                    
+                    <div class="method-item" onclick="selectWithdrawMethod('bank')">
+                        <i class="fas fa-university"></i>
+                        <h3>Transfer Bank</h3>
+                        <p>Transfer ke rekening bank</p>
+                        <span class="fee">Biaya: Rp 2,500</span>
+                    </div>
+                    
+                    <div class="method-item" onclick="selectWithdrawMethod('agent')">
+                        <i class="fas fa-store"></i>
+                        <h3>Agen</h3>
+                        <p>Ambil tunai di agen terdekat</p>
+                        <span class="fee">Biaya: Rp 3,000</span>
+                    </div>
+                </div>
+
+                <div class="withdraw-form" id="withdrawForm" style="display: none;">
+                    <div class="bank-account" id="bankAccountSection" style="display: none;">
+                        <h3>Pilih Rekening Tujuan</h3>
+                        <div class="account-list">
+                            <div class="account-item" onclick="selectAccount('bca', '1234567890')">
+                                <img src="https://via.placeholder.com/40x20/0066cc/ffffff?text=BCA" alt="BCA">
+                                <div class="account-info">
+                                    <span class="bank-name">Bank BCA</span>
+                                    <span class="account-number">1234567890</span>
+                                </div>
+                            </div>
+                            <button class="btn-add-account" onclick="addBankAccount()">
+                                <i class="fas fa-plus"></i>
+                                Tambah Rekening
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="amount-input">
+                        <label for="withdrawAmount">Jumlah Penarikan</label>
+                        <div class="input-group">
+                            <span class="input-prefix">Rp</span>
+                            <input type="number" id="withdrawAmount" placeholder="0" min="50000" max="5000000">
+                        </div>
+                        <div class="withdraw-limits">
+                            <p>Minimum: Rp 50,000 | Maximum: Rp 5,000,000</p>
+                        </div>
+                    </div>
+
+                    <div class="withdraw-summary">
+                        <div class="summary-item">
+                            <span>Jumlah Penarikan:</span>
+                            <span id="withdrawAmountDisplay">Rp 0</span>
+                        </div>
+                        <div class="summary-item">
+                            <span>Biaya Admin:</span>
+                            <span id="withdrawFee">Rp 0</span>
+                        </div>
+                        <div class="summary-item total">
+                            <span>Total Dipotong:</span>
+                            <span id="withdrawTotal">Rp 0</span>
+                        </div>
+                    </div>
+
+                    <button class="btn-withdraw" onclick="processWithdraw()">
+                            </div>
+                    </div>
+
+                    <button class="btn-withdraw" onclick="processWithdraw()">
+                        <i class="fas fa-money-bill-wave"></i>
+                        Tarik Tunai
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Merchant QRIS Section -->
+        <div class="dashboard-content" id="merchant" style="display: none;">
+            <div class="merchant-section">
+                <h2>Merchant QRIS</h2>
+                
+                <div class="merchant-stats">
+                    <div class="stat-card">
+                        <i class="fas fa-chart-line"></i>
+                        <div class="stat-info">
+                            <span class="stat-value">Rp 2,450,000</span>
+                            <span class="stat-label">Penjualan Hari Ini</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <i class="fas fa-shopping-cart"></i>
+                        <div class="stat-info">
+                            <span class="stat-value">47</span>
+                            <span class="stat-label">Transaksi Hari Ini</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <i class="fas fa-users"></i>
+                        <div class="stat-info">
+                            <span class="stat-value">32</span>
+                            <span class="stat-label">Pelanggan Unik</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="qris-generator">
+                    <h3>Generate QR Code</h3>
+                    <div class="qr-form">
+                        <div class="form-group">
+                            <label for="merchantName">Nama Merchant</label>
+                            <input type="text" id="merchantName" value="Toko Handi Dev" readonly>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="qrAmount">Nominal (Opsional)</label>
+                            <div class="input-group">
+                                <span class="input-prefix">Rp</span>
+                                <input type="number" id="qrAmount" placeholder="Kosongkan untuk nominal dinamis">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="qrDescription">Deskripsi</label>
+                            <input type="text" id="qrDescription" placeholder="Deskripsi transaksi">
+                        </div>
+                        
+                        <button class="btn-generate" onclick="generateQRIS()">
+                            <i class="fas fa-qrcode"></i>
+                            Generate QR Code
+                        </button>
+                    </div>
+                </div>
+
+                <div class="qr-display" id="qrDisplay" style="display: none;">
+                    <div class="qr-code-container">
+                        <div class="qr-code" id="generatedQR">
+                            <!-- QR Code will be generated here -->
+                        </div>
+                        <div class="qr-info">
+                            <h4 id="qrMerchantName">Toko Handi Dev</h4>
+                            <p id="qrAmountDisplay">Nominal Dinamis</p>
+                            <p id="qrDescriptionDisplay">-</p>
+                        </div>
+                    </div>
+                    
+                    <div class="qr-actions">
+                        <button class="btn-download" onclick="downloadQR()">
+                            <i class="fas fa-download"></i>
+                            Download
+                        </button>
+                        <button class="btn-print" onclick="printQR()">
+                            <i class="fas fa-print"></i>
+                            Print
+                        </button>
+                        <button class="btn-share" onclick="shareQR()">
+                            <i class="fas fa-share"></i>
+                            Share
+                        </button>
+                    </div>
+                </div>
+
+                <div class="recent-payments">
+                    <h3>Pembayaran Terbaru</h3>
+                    <div class="payments-list">
+                        <div class="payment-item">
+                            <div class="payment-info">
+                                <span class="customer-name">Pelanggan #001</span>
+                                <span class="payment-time">5 menit yang lalu</span>
+                            </div>
+                            <div class="payment-amount">Rp 75,000</div>
+                            <div class="payment-status success">Berhasil</div>
+                        </div>
+                        
+                        <div class="payment-item">
+                            <div class="payment-info">
+                                <span class="customer-name">Pelanggan #002</span>
+                                <span class="payment-time">12 menit yang lalu</span>
+                            </div>
+                            <div class="payment-amount">Rp 125,000</div>
+                            <div class="payment-status success">Berhasil</div>
+                        </div>
+                        
+                        <div class="payment-item">
+                            <div class="payment-info">
+                                <span class="customer-name">Pelanggan #003</span>
+                                <span class="payment-time">25 menit yang lalu</span>
+                            </div>
+                            <div class="payment-amount">Rp 50,000</div>
+                            <div class="payment-status success">Berhasil</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modals -->
+    <div class="modal" id="pinModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Masukkan PIN</h3>
+                <button class="modal-close" onclick="closeModal('pinModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Masukkan PIN Anda untuk melanjutkan transaksi</p>
+                <div class="pin-input">
+                    <input type="password" class="pin-digit" maxlength="1">
+                    <input type="password" class="pin-digit" maxlength="1">
+                    <input type="password" class="pin-digit" maxlength="1">
+                    <input type="password" class="pin-digit" maxlength="1">
+                    <input type="password" class="pin-digit" maxlength="1">
+                    <input type="password" class="pin-digit" maxlength="1">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeModal('pinModal')">Batal</button>
+                <button class="btn-primary" onclick="verifyPin()">Konfirmasi</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/dashboard.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/animations.js"></script>
+</body>
+</html>
