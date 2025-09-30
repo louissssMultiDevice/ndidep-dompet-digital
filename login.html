@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Handi Dev</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="auth-page">
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="auth-logo">
+                    <i class="fas fa-wallet"></i>
+                    <h1>Handi Dev</h1>
+                </div>
+                <p>Masuk ke akun Anda</p>
+            </div>
+
+            <div class="auth-methods">
+                <button class="auth-method google-auth" onclick="loginWithGoogle()">
+                    <i class="fab fa-google"></i>
+                    Masuk dengan Google
+                </button>
+                
+                <div class="divider">
+                    <span>atau</span>
+                </div>
+
+                <div class="wallet-selection">
+                    <h3>Pilih E-Wallet Anda</h3>
+                    <div class="wallet-options">
+                        <button class="wallet-option dana-option" onclick="selectWallet('dana')">
+                            <div class="wallet-icon dana-icon">
+                                <span>DANA</span>
+                            </div>
+                            <span>DANA</span>
+                        </button>
+                        
+                        <button class="wallet-option gopay-option" onclick="selectWallet('gopay')">
+                            <div class="wallet-icon gopay-icon">
+                                <i class="fas fa-motorcycle"></i>
+                            </div>
+                            <span>GoPay</span>
+                        </button>
+                        
+                        <button class="wallet-option ovo-option" onclick="selectWallet('ovo')">
+                            <div class="wallet-icon ovo-icon">
+                                <span>OVO</span>
+                            </div>
+                            <span>OVO</span>
+                        </button>
+                        
+                        <button class="wallet-option shopee-option" onclick="selectWallet('shopeepay')">
+                            <div class="wallet-icon shopee-icon">
+                                <i class="fas fa-shopping-bag"></i>
+                            </div>
+                            <span>ShopeePay</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <form class="auth-form" id="loginForm" style="display: none;">
+                <div class="form-group">
+                    <label for="phone">Nomor Telepon</label>
+                    <div class="input-group">
+                        <span class="input-prefix">+62</span>
+                        <input type="tel" id="phone" name="phone" placeholder="8xx-xxxx-xxxx" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="pin">PIN</label>
+                    <input type="password" id="pin" name="pin" placeholder="Masukkan PIN 6 digit" maxlength="6" required>
+                </div>
+
+                <button type="submit" class="btn-submit">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Masuk
+                </button>
+            </form>
+
+            <div class="auth-footer">
+                <p>Belum punya akun? <a href="register.html">Daftar sekarang</a></p>
+                <p><a href="index.html">Kembali ke beranda</a></p>
+            </div>
+        </div>
+
+        <div class="auth-visual">
+            <div class="floating-elements">
+                <div class="security-badge">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Keamanan Terjamin</span>
+                </div>
+                <div class="feature-highlight">
+                    <i class="fas fa-bolt"></i>
+                    <span>Transaksi Cepat</span>
+                </div>
+                <div class="trust-indicator">
+                    <i class="fas fa-users"></i>
+                    <span>1M+ Pengguna</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
