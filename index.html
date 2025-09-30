@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Handi Dev - Pusatnya Dompet Digital</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/particles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+    <div id="particles-container"></div>
+    
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <i class="fas fa-wallet animated-wallet"></i>
+                <span class="brand-text">Handi Dev</span>
+            </div>
+            <div class="nav-menu">
+                <a href="#features" class="nav-link">Fitur</a>
+                <a href="#qris" class="nav-link">QRIS</a>
+                <a href="#about" class="nav-link">Tentang</a>
+                <button class="btn-login" onclick="window.location.href='login.html'">Masuk</button>
+                <button class="btn-register" onclick="window.location.href='register.html'">Daftar</button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span class="gradient-text">Handi Dev</span>
+                    <br>Pusatnya Dompet Digital
+                </h1>
+                <p class="hero-subtitle">Platform pembayaran digital terdepan dengan teknologi canggih dan keamanan tingkat enterprise</p>
+                
+                <div class="hero-buttons">
+                    <button class="btn-primary pulse-animation">
+                        <i class="fas fa-rocket"></i>
+                        Mulai Sekarang
+                    </button>
+                    <button class="btn-secondary">
+                        <i class="fas fa-play"></i>
+                        Lihat Demo
+                    </button>
+                </div>
+            </div>
+            
+            <div class="hero-visual">
+                <div class="floating-wallet">
+                    <div class="wallet-card">
+                        <div class="card-chip"></div>
+                        <div class="card-wave"></div>
+                        <div class="card-balance">
+                            <span class="balance-label">Saldo</span>
+                            <span class="balance-amount" id="animated-balance">Rp 0</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="floating-coins">
+                    <div class="coin coin-1"></div>
+                    <div class="coin coin-2"></div>
+                    <div class="coin coin-3"></div>
+                </div>
+                
+                <div class="payment-icons">
+                    <div class="payment-icon dana-icon">
+                        <img src="assets/icons/dana.png" alt="DANA">
+                    </div>
+                    <div class="payment-icon gopay-icon">
+                        <img src="assets/icons/gopay.png" alt="GoPay">
+                    </div>
+                    <div class="payment-icon ovo-icon">
+                        <img src="assets/icons/ovo.png" alt="OVO">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="features">
+            <div class="container">
+                <h2 class="section-title">Fitur Unggulan</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-qrcode"></i>
+                        </div>
+                        <h3>QRIS Multi-Platform</h3>
+                        <p>Generate QRIS untuk DANA, GoPay, dan merchant dengan teknologi auto-generate</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Statistik Real-time</h3>
+                        <p>Monitor transaksi dan saldo dengan visualisasi data yang interaktif</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Keamanan Tingkat Bank</h3>
+                        <p>Enkripsi end-to-end dan autentikasi multi-faktor untuk keamanan maksimal</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="qris" class="qris-section">
+            <div class="container">
+                <h2 class="section-title">QRIS Generator</h2>
+                <div class="qris-tabs">
+                    <button class="tab-btn active" data-tab="auto">Auto Generate</button>
+                    <button class="tab-btn" data-tab="dana">QRIS DANA</button>
+                    <button class="tab-btn" data-tab="gopay">QRIS GoPay</button>
+                </div>
+                
+                <div class="qris-content">
+                    <div class="tab-content active" id="auto-tab">
+                        <div class="qris-generator">
+                            <h3>Order Kuota Auto Generate</h3>
+                            <div class="qr-display">
+                                <canvas id="qr-auto" class="qr-canvas"></canvas>
+                            </div>
+                            <button class="btn-generate" onclick="generateAutoQR()">Generate QR</button>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" id="dana-tab">
+                        <div class="qris-generator">
+                            <h3>QRIS DANA Bisnis</h3>
+                            <div class="qr-display">
+                                <canvas id="qr-dana" class="qr-canvas"></canvas>
+                            </div>
+                            <button class="btn-generate" onclick="generateDanaQR()">Generate DANA QR</button>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" id="gopay-tab">
+                        <div class="qris-generator">
+                            <h3>QRIS GoPay Merchant</h3>
+                            <div class="qr-display">
+                                <canvas id="qr-gopay" class="qr-canvas"></canvas>
+                            </div>
+                            <button class="btn-generate" onclick="generateGopayQR()">Generate GoPay QR</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <i class="fas fa-wallet"></i>
+                    <span>Handi Dev</span>
+                </div>
+                <p>© 2025 Handi Dev. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/particles.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+</body>
+  </html>
+  
