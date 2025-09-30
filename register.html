@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar - Handi Dev</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="auth-page">
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="auth-logo">
+                    <i class="fas fa-wallet"></i>
+                    <h1>Handi Dev</h1>
+                </div>
+                <p>Buat akun baru Anda</p>
+            </div>
+
+            <div class="registration-steps">
+                <div class="step-indicator">
+                    <div class="step active" data-step="1">
+                        <span>1</span>
+                        <label>Pilih E-Wallet</label>
+                    </div>
+                    <div class="step" data-step="2">
+                        <span>2</span>
+                        <label>Data Diri</label>
+                    </div>
+                    <div class="step" data-step="3">
+                        <span>3</span>
+                        <label>Verifikasi</label>
+                    </div>
+                </div>
+
+                <!-- Step 1: Wallet Selection -->
+                <div class="step-content active" id="step1">
+                    <h3>Pilih E-Wallet untuk Registrasi</h3>
+                    <div class="wallet-options">
+                        <button class="wallet-option dana-option" onclick="selectRegistrationWallet('dana')">
+                            <div class="wallet-icon dana-icon">
+                                <span>DANA</span>
+                            </div>
+                            <div class="wallet-info">
+                                <h4>DANA</h4>
+                                <p>Daftar dengan akun DANA</p>
+                            </div>
+                        </button>
+                        
+                        <button class="wallet-option gopay-option" onclick="selectRegistrationWallet('gopay')">
+                            <div class="wallet-icon gopay-icon">
+                                <i class="fas fa-motorcycle"></i>
+                            </div>
+                            <div class="wallet-info">
+                                <h4>GoPay</h4>
+                                <p>Daftar dengan akun GoPay</p>
+                            </div>
+                        </button>
+                        
+                        <button class="wallet-option ovo-option" onclick="selectRegistrationWallet('ovo')">
+                            <div class="wallet-icon ovo-icon">
+                                <span>OVO</span>
+                            </div>
+                            <div class="wallet-info">
+                                <h4>OVO</h4>
+                                <p>Daftar dengan akun OVO</p>
+                            </div>
+                        </button>
+                        
+                        <button class="wallet-option shopee-option" onclick="selectRegistrationWallet('shopeepay')">
+                            <div class="wallet-icon shopee-icon">
+                                <i class="fas fa-shopping-bag"></i>
+                            </div>
+                            <div class="wallet-info">
+                                <h4>ShopeePay</h4>
+                                <p>Daftar dengan akun ShopeePay</p>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Personal Information -->
+                <div class="step-content" id="step2">
+                    <h3>Lengkapi Data Diri</h3>
+                    <form class="registration-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">Nama Depan</label>
+                                <input type="text" id="firstName" name="firstName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Nama Belakang</label>
+                                <input type="text" id="lastName" name="lastName" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Nomor Telepon</label>
+                            <div class="input-group">
+                                <span class="input-prefix">+62</span>
+                                <input type="tel" id="phone" name="phone" placeholder="8xx-xxxx-xxxx" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="birthDate">Tanggal Lahir</label>
+                            <input type="date" id="birthDate" name="birthDate" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="pin">Buat PIN (6 digit)</label>
+                            <input type="password" id="pin" name="pin" placeholder="Masukkan PIN 6 digit" maxlength="6" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="confirmPin">Konfirmasi PIN</label>
+                            <input type="password" id="confirmPin" name="confirmPin" placeholder="Ulangi PIN" maxlength="6" required>
+                        </div>
+
+                        <div class="form-group checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="terms" name="terms" required>
+                                <span class="checkmark"></span>
+                                Saya setuju dengan <a href="#" target="_blank">Syarat & Ketentuan</a>
+                            </label>
+                        </div>
+
+                        <button type="button" class="btn-next" onclick="nextStep()">
+                            Lanjutkan
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Step 3: Verification -->
+                <div class="step-content" id="step3">
+                    <h3>Verifikasi Nomor Telepon</h3>
+                    <p>Kami telah mengirim kode OTP ke nomor <strong id="phoneDisplay"></strong></p>
+                    
+                    <div class="otp-input-group">
+                        <input type="text" class="otp-input" maxlength="1" oninput="moveToNext(this, 1)">
+                        <input type="text" class="otp-input" maxlength="1" oninput="moveToNext(this, 2)">
+                        <input type="text" class="otp-input" maxlength="1" oninput="moveToNext(this, 3)">
+                        <input type="text" class="otp-input" maxlength="1" oninput="moveToNext(this, 4)">
+                        <input type="text" class="otp-input" maxlength="1" oninput="moveToNext(this, 5)">
+                        <input type="text" class="otp-input" maxlength="1" oninput="moveToNext(this, 6)">
+                    </div>
+
+                    <div class="otp-timer">
+                        <p>Kirim ulang kode dalam <span id="timer">60</span> detik</p>
+                        <button class="btn-resend" id="resendBtn" onclick="resendOTP()" disabled>
+                            Kirim Ulang
+                        </button>
+                    </div>
+
+                    <button class="btn-verify" onclick="verifyOTP()">
+                        <i class="fas fa-check"></i>
+                        Verifikasi
+                    </button>
+                </div>
+            </div>
+
+            <div class="auth-footer">
+                <p>Sudah punya akun? <a href="login.html">Masuk sekarang</a></p>
+                <p><a href="index.html">Kembali ke beranda</a></p>
+            </div>
+        </div>
+
+        <div class="auth-visual">
+            <div class="registration-benefits">
+                <div class="benefit-item">
+                    <i class="fas fa-gift"></i>
+                    <h4>Bonus Registrasi</h4>
+                    <p>Dapatkan saldo gratis Rp 10.000</p>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-percent"></i>
+                    <h4>Cashback</h4>
+                    <p>Cashback hingga 5% setiap transaksi</p>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-crown"></i>
+                    <h4>Member Premium</h4>
+                    <p>Akses fitur eksklusif member</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
+  
